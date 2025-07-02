@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* Prevent layout shift from fixed header */
+html {
+  scroll-padding-top: 100px;
+}
+
+/* CRITICAL IMAGE LOADING AND DISPLAY FIXES */
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Force proper image rendering */
+img {
+  image-rendering: auto !important;
+  -webkit-image-rendering: auto !important;
+  -moz-image-rendering: auto !important;
+  -o-image-rendering: auto !important;
+  -ms-image-rendering: auto !important;
+}
+
+/* Full coverage image styles */
+.post-card-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+/* Prevent image optimization issues */
+img[src*="amazonaws.com"],
+img[src*="unsplash.com"] {
+  image-rendering: auto !important;
+  -webkit-image-rendering: auto !important;
+  loading: eager !important;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* CRITICAL GIF ANIMATION FIXES */
+/* Force GIFs to maintain their animation and prevent optimization */
+img[src$=".gif"],
+img[src*="giphy.com"],
+img[data-no-optimize="true"],
+img[src*="animated"],
+img[src*="Animated"],
+.gif-image {
+  /* Critical: Prevent any image optimization that could break GIF animation */
+  image-rendering: auto !important;
+  -webkit-image-rendering: auto !important;
+  -moz-image-rendering: auto !important;
+  -o-image-rendering: auto !important;
+  -ms-image-rendering: auto !important;
+  
+  /* Force high quality rendering for GIFs */
+  image-rendering: -webkit-optimize-contrast !important;
+  -webkit-image-rendering: -webkit-optimize-contrast !important;
+  
+  /* Prevent WebP conversion */
+  content-type: image/gif !important;
+  
+  /* Ensure animation plays */
+  animation-play-state: running !important;
+  animation-iteration-count: infinite !important;
+  
+  /* Prevent lazy loading for GIFs */
+  loading: eager !important;
+  
+  /* Full coverage for GIFs */
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* Disable lazy loading for animated images */
+img[data-no-lazy="true"] {
+  loading: eager !important;
+}
+
+/* Force GIF autoplay and loop */
+img[src$=".gif"],
+img[src*="giphy.com"] {
+  animation-play-state: running !important;
+  animation-iteration-count: infinite !important;
+  /* Prevent caching issues that might stop animation */
+  cache: no-cache !important;
+}
+
+/* Giphy specific optimizations */
+img[src*="giphy.com"] {
+  /* Ensure Giphy GIFs are not processed */
+  image-rendering: pixelated !important;
+  -ms-interpolation-mode: nearest-neighbor !important;
+  loading: eager !important;
+}
+
+/* Image container fixes for full coverage */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #f3f4f6;
+  width: 100%;
+  height: 100%;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Custom scrollbar with theme colors */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ffde59 0%, #ffd700 100%);
+  border-radius: 8px;
+  border: 2px solid #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #ff6363 0%, #ff4757 100%);
+}
+
+/* Smooth animations */
+* {
+  transition-property: transform, opacity, background-color, border-color, color, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Heart fill animation */
+.heart-filled {
+  fill: currentColor;
+}
+
+/* Focus styles for accessibility */
+input:focus,
+button:focus {
+  outline: 2px solid #ffde59;
+  outline-offset: 2px;
+}
+
+/* Enhanced button hover effects */
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Card hover effects */
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #ffde59 0%, #ff6363 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading states */
+.image-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* GIF indicator styles */
+.gif-indicator {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 20;
+}
+
+/* Force browser to not cache GIFs to ensure proper animation */
+img[src*=".gif"] {
+  cache-control: no-cache !important;
+  pragma: no-cache !important;
+  expires: 0 !important;
+}
+
+/* Image error state */
+.image-error {
+  background-color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ensure images fill container completely */
+.post-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  background-color: #f3f4f6;
+  display: block !important;
+}
+
+/* Responsive image containers */
+@media (max-width: 640px) {
+  .image-container {
+    height: 280px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .image-container {
+    height: 320px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .image-container {
+    height: 320px;
+  }
+}
+
+/* Force full coverage on all screen sizes */
+.full-coverage-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  min-width: 100%;
+  min-height: 100%;
+}
